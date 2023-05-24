@@ -1,0 +1,98 @@
+<div class="wrapper">
+  <div class="tabs-container slider-container">
+    <div class="tabs slider">
+      {% for block in section.blocks %}
+        <div class="slider-item" role="tablist" aria-label="Programming Languages">
+          <button class="for_active"
+            role="tab"
+            aria-selected="true"
+            id="{{ block.settings.collection_handle }}-tab"
+            onclick="openTab('{{ block.settings.collection_handle }}')"
+          >
+           <p class="collection_handle"> {{ block.settings.collection_handle }}</p>
+            {% assign collection = collections[block.settings.collection_handle] %}
+            {% if collection.featured_image %}
+              <img class="collection_img" src="{{ collection.featured_image.src | img_url: 'medium' }}" alt="{{ collection.title }}">
+            {% else %}
+              {% assign first_product = collection.products.first %}
+              {% if first_product and first_product.featured_image %}
+                <img  src="{{ first_product.featured_image.src | img_url: 'medium' }}" alt="{{ collection.title }}">
+              {% endif %}
+            {% endif %}
+          </button>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="slider_button">
+      <button class="slider-btns prev-btn">&larr;</button>
+      <button class="slider-btns next-btn">&rarr;</button>
+    </div>
+    
+    {% for block in section.blocks %}
+      <div id="{{ block.settings.collection_handle }}" class="tab-content">
+        <h2 class="win_conllection_handle" >{{ block.settings.collection_handle }}</h2>
+        <ul class="product-list">
+          {% for product in collections[block.settings.collection_handle].products %}
+            <li>
+              <a href="{{ product.url }}">
+              <img class="win_product_img" src="{{ product.featured_image | img_url: '300x' }}" alt="{{ product.featured_image.alt }}">
+              <h3 class="win_product_title" >{{ product.title }}</h3>
+               <p class="handle_for_product" > {{ block.settings.collection_handle }}</p> 
+              <p class="win_product_price" >{{ product.price | money }}</p>
+                {% if section.settings.win_stars %}
+                  <div class="product_review">
+                <img class="star_rating" src="https://cdn.discordapp.com/attachments/1070601449962225734/1110498814390960148/New_Project_1.png"/> 
+                  <img class="star_rating" src="https://cdn.discordapp.com/attachments/1070601449962225734/1110498814390960148/New_Project_1.png"/>  
+                    <img class="star_rating" src="https://cdn.discordapp.com/attachments/1070601449962225734/1110498814390960148/New_Project_1.png"/> 
+                    <img class="star_rating" src="https://cdn.discordapp.com/attachments/1070601449962225734/1110498814390960148/New_Project_1.png"/> 
+                    <img class="star_rating" src="https://cdn.discordapp.com/attachments/1070601449962225734/1110498814390960148/New_Project_1.png"/> 
+               </div>
+                {% endif %}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+    
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection Tabs",
+  "settings": [
+    {
+          "type": "checkbox",
+          "label": "Show star",
+          "id": "win_stars"
+        }
+  ],
+  "blocks": [
+    {
+      "type": "collection_tab",
+      "name": "Collection Tab",
+      "settings": [
+        {
+          "type": "collection",
+          "label": "Collection",
+          "id": "collection_handle"
+        }
+         
+      ]
+      }
+  ],
+      "presets": [
+        {
+          "name": "Collection Tabs"
+        }
+      ]
+
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

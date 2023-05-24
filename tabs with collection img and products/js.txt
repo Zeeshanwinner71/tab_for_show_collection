@@ -1,0 +1,54 @@
+  <script>
+function openTab(tabIndex) {
+  // Hide all tab contents
+  var tabContents = document.getElementsByClassName('tab-content');
+  for (var i = 0; i < tabContents.length; i++) {
+    tabContents[i].style.display = 'none';
+  }
+
+  // Remove 'active' class from all tab buttons
+  var tabButtons = document.getElementsByClassName('tab-button');
+  for (var i = 0; i < tabButtons.length; i++) {
+    tabButtons[i].classList.remove('active');
+  }
+
+  // Show the selected tab content
+  var selectedTab = document.getElementsByClassName('tab-content')[tabIndex];
+  selectedTab.style.display = 'block';
+
+  // Add 'active' class to the selected tab button
+  var selectedButton = document.getElementsByClassName('tab-button')[tabIndex];
+  selectedButton.classList.add('active');
+}
+
+// Show the tab at index 0 by default when the page loads
+window.addEventListener('load', function() {
+  var defaultTabIndex = 0;
+  openTab(defaultTabIndex);
+});
+
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+  const slider = document.querySelector(".slider");
+  const prevBtn = document.querySelector(".prev-btn");
+  const nextBtn = document.querySelector(".next-btn");
+
+  prevBtn.addEventListener("click", function() {
+    slider.scrollBy({
+      left: -slider.offsetWidth,
+      behavior: "smooth"
+    });
+  });
+
+  nextBtn.addEventListener("click", function() {
+    slider.scrollBy({
+      left: slider.offsetWidth,
+      behavior: "smooth"
+    });
+  });
+});
+
+
+
+  </script>
